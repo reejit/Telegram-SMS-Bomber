@@ -3,10 +3,10 @@ import telebot
 bot = telebot.TeleBot('1410709159:AAEkzgIGWDAX849tB3MFWoo4oPxjqW2xxlI')
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['help'])
 def start(message):
-    start = 'To start SMS Bomber type /bomber'
-    bot.send_message(message.chat.id, start)
+    help = 'To start SMS Bomber type /bomber'
+    bot.send_message(message.chat.id, help)
 
 
 number = ''
@@ -17,7 +17,7 @@ def start(message):
         bot.send_message(message.from_user.id, 'Input target number:')
         bot.register_next_step_handler(message, get_number)
     else:
-        bot.send_message(message.from_user.id, 'Type /bomber')
+        bot.send_message(message.from_user.id, 'Type /bomber or /help')
 
 
 def get_number(message):
