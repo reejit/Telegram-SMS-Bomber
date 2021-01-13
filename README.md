@@ -1,5 +1,5 @@
 # Telegram-SMS-Bomber
-Simple Telegram SMS Bomber written in Python using [pyTelegramBotAPI](https://github.com/eternnoir/pyTelegramBotAPI).
+Simple Telegram SMS Bomber written in Python using [pyTelegramBotAPI](https://heroku.com/deploy).
 
 ## Installation:
 #### Linux:
